@@ -18,7 +18,36 @@ const manageRecipes = async () => {
     // Before adding any recipes to the database, let's remove all existing ones
     await Recipe.deleteMany();
 
-    // Run your code here, after you have insured that the connection was made
+    let newRec = await Recipe.create({ 
+    title: "Mashed potatoes",
+    level: "Amateur Chef",
+    ingredients: [
+      "1/2 cup rice vinegar",
+      "5 tablespoons honey",
+      "1/3 cup soy sauce (such as Silver Swan®)",
+      "1/4 cup Asian (toasted) sesame oil",
+      "3 tablespoons Asian chili garlic sauce",
+      "3 tablespoons minced garlic",
+      "salt to taste",
+      "8 skinless, boneless chicken thighs"
+    ],
+    cuisine: "Asian",
+    dishType: "main_course",
+    image: "https://images.media-allrecipes.com/userphotos/720x405/815964.jpg",
+    duration: 40,
+    creator: "Chef LePapu"
+    })
+    console.log(newRec.title)
+
+    await Recipe.insertMany(data)
+
+/*     await Recipe.findByIdAndUpdate("635aac3f9fc3529116099e58", {duration: '150'}); */
+    await Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: '100'}); 
+    console.log("The update was sucessfull");
+
+    await Recipe.deleteOne({title: "Carrot Cake"})
+
+    dbConnection.disconnect();
   } catch (error) {
     console.log(error);
   }
@@ -42,3 +71,4 @@ manageRecipes();
   .catch((error) => {
     console.error('Error connecting to the database', error);
   }); */
+
